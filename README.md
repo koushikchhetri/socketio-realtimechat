@@ -17,13 +17,17 @@ This realtime chat does not include ajax request which most of the time make col
   - Install it in your drive under where the web server exist like c:/xampp/htdocs/nodeserver/
   - Open command line(Terminal) to nodeserver directory
   - Write the following commands
-    - c:\xampp\htdocs\nodeserver>node install socket.io
-    - c:\xampp\htdocs\nodeserver>node install express
-    - c:\xampp\htdocs\nodeserver>node install http
-    - c:\xampp\htdocs\nodeserver>node install net
-    - c:\xampp\htdocs\nodeserver>node install url
-    - c:\xampp\htdocs\nodeserver>node install mysql //If you want to indulge mysql with realtime to save data of a session.
+    - <code>```c:\xampp\htdocs\nodeserver>node install socket.io```</code>
+    - <code>```c:\xampp\htdocs\nodeserver>node install express```</code>
+    - <code>```c:\xampp\htdocs\nodeserver>node install http```</code>
+    - <code>```c:\xampp\htdocs\nodeserver>node install net```</code>
+    - <code>```c:\xampp\htdocs\nodeserver>node install url```</code>
+    - <code>```c:\xampp\htdocs\nodeserver>node install mysql //If you want to indulge mysql with realtime to save data of a session.
   - Now create a client.html page for your clientside code
     - Add <code>```<script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>```</code> to this page.
+    - Add after the socket.io-1.2.1.js <code>```
+    <script type="text/javascript">
+    var socket = io('http://localhost:1003');
+    socket.emit('join',{usersid:1,username:"koushik",avatar:"profile.png"});```</code>
 
   
