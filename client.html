@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Realtime chat</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
+    <script type="text/javascript">
+    /**
+    * Lets say userid "1" then username "u u_1"
+    */
+    var userid=1;
+    var username="u u_"+userid;
+    
+    var friendsid=2;
+    
+    /**
+    * From the following line a client connects with the server.js and then "connect" method of server.js fired
+    */
+    var socket=io("http://localhost:1007");
+    
+    /**
+    * From following line user joined to the chat and server.js creates an array index for this user in "arr_onlineusers" array
+    */
+    
+    socket.emit("join",{userid:userid,username:username},function(data){
+      //In "data argument" user will get his previous messages if he had loggedin in chat panel before and sent some users
+    });
+    </script>
+  </head>
+  <body>
+  Message Text
+  <textarea cols="20" rows="5" id="msg"></textarea><button id="send">Send message</button>
+  <script type="text/javascript">
+  documen.getElementById("send").addEventListener("click",function(e){
+  e.preventDefault();
+  var randomnumber=parseInt((new Date()).getTime())+Math.floor((Math.random() * 100) + 1);
+  socket.emit("newmessage_sent",{message_id:randomnumber,senderid:userid,receiverid:friendsid,message_string:document.getElementById("msg").innerHTML,sent_time:Math.floor((((new Date).getTime())/1000)},function(boolean){
+    if(boolean){
+    console.log("Message is sent");
+    }else{
+    console.log("Message could not sent");
+    }
+  });
+  },false);
+  </script>
+  </body>
+</html>
