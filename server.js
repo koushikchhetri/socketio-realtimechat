@@ -46,10 +46,31 @@ var arr_peer2peermessage={};
    * When client connected to the server then io.sockets.on("connection",function()); fires
   */
 io.sockets.on("connection",function(socket){
+  /**
+     * Every one will see the current joined userlist in their chat panel
+    */
   function broadcastonlineusers(){
     for(var index in arr_onlineusers){
       io.to(arr_sockets[index]).emit("onlinestatus",arr_onlineusers);
     }
+  }
+  
+  /**
+     * Following method gets the user previous data from database it arr_peer2peermessage[sender][received].messgage[]={}
+     * And get back the data to the currently joined user
+    */
+  function loadpeer2peermessage(userid,callback){
+    var sql='SELECT receivedid,message FROM peertopeermessages WHERE senderid="'+userid+'"';
+    var query=db.query(sql,function(err,results){
+      if(typeof arr_peer2peermessage[userid]=="undefined")
+        arr_peer2peermessage[userid]={}
+      for(var index in results){
+        if(typeof arr_peer2peermessage[userid][results[index].receiverid]=="undefined")
+          arr_peer2peermessage[data.senderid][results[index].receiverid]={}
+        arr_peer2peermessage[data.senderid][results[index].receiverid]=JSON.parse(results[index].message);  
+      }
+      callback(arr_peer2peermessage);
+    });
   }
   
   /**
@@ -63,7 +84,15 @@ io.sockets.on("connection",function(socket){
     arr_sockets[socket.usersid]=socket.id;//Store one socket per client
     arr_onlineusers[socket.usersid]=data;
     
+    /**
+     * Every one will see the current joined userlist in their chat panel
+    */
     broadcastonlineusers();
+    /**
+     * Following method gets the user previous data from database it arr_peer2peermessage[sender][received].messgage[]={}
+     * And get back the data to the currently joined user
+    */
+    loadpeer2peermessage(socket.usersid,callback);
   });
   
   /**
@@ -173,8 +202,13 @@ io.sockets.on("connection",function(socket){
         })(index_1,arr_peer2peermessage[socket.usersid][index_1]);
       }
     }
-    
+    /**
+     * Deleting data of disconnected user from arr_onlineusers 
+    */
     delete arr_onlineusers[socket.usersid];
+    /**
+     * Every one will see the current joined userlist in their chat panel
+    */
     broadcastonlineusers();
   });
 });
