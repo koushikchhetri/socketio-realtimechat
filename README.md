@@ -1,10 +1,7 @@
-# Server.js 
+#Description
 
-is the heart beat of a realtime chat which does not include ajax server request
+This realtime chat does not include ajax request which most of the time make collapse of server band-width. Here I have server.js, the heart beat of a realtime chat which does not include ajax server request. It is a simple javascript code which resides in server. It communicates with the client through a uniform specific socket port for all clients who are connected in the same server. Soket port may vary from 1001 to 1003 or so on. 
 
-##Description
-
-server.js is a simple javascript code which resides in server. It communicates with the client througha a uniform specific socket port for all clients who are connected in the same server. Soket port may vary from 1001 to 1003 or so on. 
 
 To achieved realtime chat we need.
 
