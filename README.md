@@ -28,7 +28,16 @@ This realtime chat does not include ajax request which most of the time make col
       <script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
       <script type="text/javascript">
         var socket = io('http://localhost:1003');//Through this line client is connected to server.
-        socket.emit('join',{usersid:1,username:"koushik",avatar:"profile.png"});//First time client sending request to the server when user joins to the realtime chat
+        //First time client sending request to the server when user joins to the realtime chat
+        //socket.emit takes usualy two paramter but one more paramenter can be passed which is callback function
+        //socket.emit('join',{usersid:1,username:"koushik",avatar:"profile.png"},callfunctino(){});
+        socket.emit('join',{usersid:1,username:"koushik",avatar:"profile.png"});
+        
+        //Now if you want to get the request from the server to the client page then you have to do the following things.
+        //Say server sending broadcast in the "onlineusers" method then we have to do the following to get the data
+        socket.on("onlineusers",function(data){
+          //data which comes from server
+        });
       </script>
   ```
 
