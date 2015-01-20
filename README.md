@@ -22,7 +22,7 @@ This realtime chat does not include ajax request which most of the time make col
     - <code>```c:\xampp\htdocs\nodeserver>node install http```</code>
     - <code>```c:\xampp\htdocs\nodeserver>node install net```</code>
     - <code>```c:\xampp\htdocs\nodeserver>node install url```</code>
-    - <code>```c:\xampp\htdocs\nodeserver>node install mysql //If you want to indulge mysql with realtime to save data of a session.
+    - <code>```c:\xampp\htdocs\nodeserver>node install mysql </code>//If you want to indulge mysql with realtime to save data of a session.
   - Now create a client.html page for your clientside code
   ```
       <script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
